@@ -1,7 +1,7 @@
 import {FilterConfig, Theme} from '../definitions';
 import {parse, rgbToHSL, hslToRGB, rgbToString, rgbToHexString, RGBA, HSLA} from '../utils/color';
 import {scale} from '../utils/math';
-import {applyColorMatrix, createFilterMatrix} from './utils/matrix';
+import {applyColorMatrix, createColorBlindMatrix, createFilterMatrix} from './utils/matrix';
 
 interface ColorFunction {
     (hsl: HSLA): HSLA;
@@ -65,7 +65,11 @@ function modifyColorWithCache(rgb: RGBA, theme: Theme, modifyHSL: (hsl: HSLA, po
     const modified = modifyHSL(hsl, pole, anotherPole);
     const {r, g, b, a} = hslToRGB(modified);
     const matrix = createFilterMatrix(theme);
-    const [rf, gf, bf] = applyColorMatrix([r, g, b], matrix);
+    let [rf, gf, bf] = applyColorMatrix([r, g, b], matrix);
+    if (theme.colorBlind.enabled) {
+        const colorBlindMatrix = createColorBlindMatrix(theme);
+        [rf, gf, bf] = applyColorMatrix([rf, gf, bf], colorBlindMatrix);
+    }
 
     const color = (a === 1 ?
         rgbToHexString({r: rf, g: gf, b: bf}) :

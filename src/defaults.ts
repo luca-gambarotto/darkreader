@@ -31,6 +31,12 @@ export const DEFAULT_THEME: Theme = {
     scrollbarColor: isMacOS() ? '' : 'auto',
     selectionColor: 'auto',
     styleSystemControls: true,
+    colorBlind: {
+        enabled: false,
+        mode: 'protanomaly',
+        strength: 1,
+        correction: 0.5,
+    }
 };
 
 export const DEFAULT_SETTINGS: UserSettings = {

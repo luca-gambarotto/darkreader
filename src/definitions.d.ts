@@ -37,6 +37,12 @@ export interface ExtWrapper {
     actions: ExtensionActions;
 }
 
+export interface ColorBlind {
+    enabled: boolean;
+    mode: 'protanomaly' | 'deuteranomaly' | 'tritanomaly';
+    strength: number;
+    correction: number;
+}
 export interface Theme {
     mode: FilterMode;
     brightness: number;
@@ -55,6 +61,7 @@ export interface Theme {
     scrollbarColor: '' | 'auto' | string;
     selectionColor: '' | 'auto' | string;
     styleSystemControls: boolean;
+    colorBlind: ColorBlind;
 }
 
 export type FilterConfig = Theme;

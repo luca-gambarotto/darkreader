@@ -2,7 +2,7 @@ import {m} from 'malevic';
 import {DEFAULT_SETTINGS, DEFAULT_THEME, DEFAULT_COLORS} from '../../../../defaults';
 import {Theme} from '../../../../definitions';
 import {ViewProps} from '../../types';
-import {BackgroundColor, Brightness, Contrast, FontPicker, Grayscale, Mode, ResetButton, Scheme, Scrollbar, SelectionColorEditor, Sepia, TextColor, TextStroke, UseFont, StyleSystemControls} from '../controls';
+import {BackgroundColor, Brightness, Contrast, FontPicker, Grayscale, Mode, ResetButton, Scheme, Scrollbar, SelectionColorEditor, Sepia, TextColor, TextStroke, UseFont, StyleSystemControls, UseColorBlind, ColorBlindMode, ColorBlindStrength, ColorBlindCorrection} from '../controls';
 import ThemePresetPicker from '../preset-picker';
 import {getCurrentThemePreset} from '../utils';
 import Collapsible from './collapsible-panel';
@@ -73,6 +73,22 @@ function ColorsGroup({theme, change}: ThemeGroupProps) {
                 value={theme.selectionColor}
                 onChange={(v) => change({selectionColor: v})}
                 onReset={() => change({selectionColor: DEFAULT_SETTINGS.theme.selectionColor})}
+            />
+            <UseColorBlind
+                value={theme.colorBlind.enabled}
+                onChange={(v) => change({colorBlind: {...theme.colorBlind, enabled: v}})}
+            />
+            <ColorBlindMode
+                value={theme.colorBlind.mode}
+                onChange={(v) => change({colorBlind: {...theme.colorBlind, mode: v}})}
+            />
+            <ColorBlindStrength
+                value={theme.colorBlind.strength}
+                onChange={(v) => change({colorBlind: {...theme.colorBlind, strength: v}})}
+            />
+            <ColorBlindCorrection
+                value={theme.colorBlind.correction}
+                onChange={(v) => change({colorBlind: {...theme.colorBlind, correction: v}})}
             />
         </Array>
     );
